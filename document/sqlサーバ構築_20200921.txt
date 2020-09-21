@@ -84,7 +84,7 @@ az sql db create --resource-group myResourceGroup --server watatsuyu11 --name co
 
 az sql db show-connection-string --client ado.net --server watatsuyu11 --name coreDB
 
-□接続文字列
+□接続文字列 db
 "Server=tcp:watatsuyu11.database.windows.net,1433;Database=coreDB;User ID=watatsuyu11;Password=0ce@n2O2O!;Encrypt=true;Connection Timeout=30;"
 
 # Delete old migrations
@@ -98,4 +98,196 @@ $env:ConnectionStrings:MyDbConnection="Server=tcp:watatsuyu11.database.windows.n
 
 # Run migrations
 dotnet ef database update
+
+□デプロイユーザ
+az webapp deployment user set --user-name watatsuyu --password 0ce@n2O2O!
+
+□アプリ名
+az --% webapp create --resource-group myResourceGroup --plan myAppServicePlan --name watatsuyu11 --runtime "DOTNETCORE|3.1" --deployment-local-git
+
+□Git リモートの URL
+  "deploymentLocalGitUrl": "https://watatsuyu@watatsuyu11.scm.azurewebsites.net/watatsuyu11.git",
+
+□接続文字列　アプリ
+az webapp config connection-string set --resource-group myResourceGroup --name watatsuyu11 --settings MyDbConnection="Server=tcp:watatsuyu11.database.windows.net,1433;Database=coreDB;User ID=watatsuyu11;Password=0ce@n2O2O!;Encrypt=true;Connection Timeout=30;" --connection-string-type SQLAzure
+
+PS /home/watatsuyu11> az --% webapp create --resource-group myResourceGroup --plan myAppServicePlan --name watatsuyu11 --runtime "DOTNETCORE|3.1" --deployment-local-git
+
+Local git is configured with url of 'https://watatsuyu@watatsuyu11.scm.azurewebsites.net/watatsuyu11.git'
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "clientCertExclusionPaths": null,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "watatsuyu11.azurewebsites.net",
+  "deploymentLocalGitUrl": "https://watatsuyu@watatsuyu11.scm.azurewebsites.net/watatsuyu11.git",
+  "enabled": true,
+  "enabledHostNames": [
+    "watatsuyu11.azurewebsites.net",
+    "watatsuyu11.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-sg1-051.ftp.azurewebsites.windows.net/site/wwwroot",
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "watatsuyu11.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "watatsuyu11.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "watatsuyu11.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "httpsOnly": false,
+  "hyperV": false,
+  "id": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/watatsuyu11",
+  "identity": null,
+  "inProgressOperationId": null,
+  "isDefaultContainer": null,
+  "isXenon": false,
+  "kind": "app,linux",
+  "lastModifiedTimeUtc": "2020-09-21T16:25:03.203333",
+  "location": "Southeast Asia",
+  "maxNumberOfWorkers": null,
+  "name": "watatsuyu11",
+  "outboundIpAddresses": "13.67.9.5,104.43.19.189,13.76.208.109,13.76.231.65,13.76.138.204",
+  "possibleOutboundIpAddresses": "13.67.9.5,104.43.19.189,13.76.208.109,13.76.231.65,13.76.138.204,13.67.70.243,13.76.100.162,52.187.130.238,52.187.131.4,52.187.14.194",
+  "redundancyMode": "None",
+  "repositorySiteName": "watatsuyu11",
+  "reserved": true,
+  "resourceGroup": "myResourceGroup",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/myAppServicePlan",
+  "siteConfig": {
+    "acrUseManagedIdentityCreds": false,
+    "acrUserManagedIdentityID": null,
+    "alwaysOn": null,
+    "apiDefinition": null,
+    "apiManagementConfig": null,
+    "appCommandLine": null,
+    "appSettings": null,
+    "autoHealEnabled": null,
+    "autoHealRules": null,
+    "autoSwapSlotName": null,
+    "azureMonitorLogCategories": null,
+    "azureStorageAccounts": null,
+    "connectionStrings": null,
+    "cors": null,
+    "customAppPoolIdentityAdminState": null,
+    "customAppPoolIdentityTenantState": null,
+    "defaultDocuments": null,
+    "detailedErrorLoggingEnabled": null,
+    "documentRoot": null,
+    "experiments": null,
+    "fileChangeAuditEnabled": null,
+    "ftpsState": null,
+    "functionAppScaleLimit": null,
+    "functionsRuntimeScaleMonitoringEnabled": null,
+    "handlerMappings": null,
+    "healthCheckPath": null,
+    "http20Enabled": null,
+    "httpLoggingEnabled": null,
+    "ipSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "javaContainer": null,
+    "javaContainerVersion": null,
+    "javaVersion": null,
+    "limits": null,
+    "linuxFxVersion": null,
+    "loadBalancing": null,
+    "localMySqlEnabled": null,
+    "logsDirectorySizeLimit": null,
+    "machineKey": null,
+    "managedPipelineMode": null,
+    "managedServiceIdentityId": null,
+    "metadata": null,
+    "minTlsVersion": null,
+    "minimumElasticInstanceCount": 0,
+    "netFrameworkVersion": null,
+    "nodeVersion": null,
+    "numberOfWorkers": null,
+    "phpVersion": null,
+    "powerShellVersion": null,
+    "preWarmedInstanceCount": null,
+    "publishingPassword": null,
+    "publishingUsername": null,
+    "push": null,
+    "pythonVersion": null,
+    "remoteDebuggingEnabled": null,
+    "remoteDebuggingVersion": null,
+    "requestTracingEnabled": null,
+    "requestTracingExpirationTime": null,
+    "routingRules": null,
+    "runtimeADUser": null,
+    "runtimeADUserPassword": null,
+    "scmIpSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "scmIpSecurityRestrictionsUseMain": null,
+    "scmMinTlsVersion": null,
+    "scmType": null,
+    "tracingOptions": null,
+    "use32BitWorkerProcess": null,
+    "virtualApplications": null,
+    "vnetName": null,
+    "vnetRouteAllEnabled": null,
+    "webSocketsEnabled": null,
+    "websiteTimeZone": null,
+    "winAuthAdminState": null,
+    "winAuthTenantState": null,
+    "windowsFxVersion": null,
+    "xManagedServiceIdentityId": null
+  },
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal
 
