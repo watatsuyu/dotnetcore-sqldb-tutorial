@@ -1,0 +1,101 @@
+Requesting a Cloud Shell.Succeeded.
+Connecting terminal...
+
+Welcome to Azure Cloud Shell
+
+Type "az" to use Azure CLI
+Type "help" to learn about Cloud Shell
+
+
+MOTD: Save files to $home/clouddrive for persistence across sessions
+
+VERBOSE: Authenticating to Azure ...
+VERBOSE: Building your Azure drive ...
+PS /home/watatsuyu11> az group create --name myResourceGroup --location "West Europe"
+ValidationError: Invalid resource group location 'westeurope'. The Resource group already exists in location 'southeastasia'.
+PS /home/watatsuyu11> az group create --name watatsuyu11ResourceGroup --location "West Europe"
+{
+  "id": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/watatsuyu11ResourceGroup",
+  "location": "westeurope",
+  "managedBy": null,
+  "name": "watatsuyu11ResourceGroup",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+PS /home/watatsuyu11> az sql server create --name watatsuyu11 --resource-group myResourceGroup --location "West Europe" --admin-user watatsuyu11@outlook.jp --admin-password 81115wata
+
+
+ValidationError: Deployment failed. Correlation ID: 65b5d684-353b-47f4-8dc9-cfc1a4006aa8. Password validation failed. The password does not meet policy requirements because it is not complex enough.PS /home/watatsuyu11>
+PS /home/watatsuyu11>
+PS /home/watatsuyu11> az sql server create --name watatsuyu11 --resource-group myResourceGroup --location "West Europe" --admin-user watatsuyu11 --admin-password 0ce@n2O2O!
+{- Finished ..
+  "administratorLogin": "watatsuyu11",
+  "administratorLoginPassword": null,
+  "fullyQualifiedDomainName": "watatsuyu11.database.windows.net",
+  "id": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/watatsuyu11",
+  "identity": null,
+  "kind": "v12.0",
+  "location": "westeurope",
+  "minimalTlsVersion": null,
+  "name": "watatsuyu11",
+  "privateEndpointConnections": [],
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "myResourceGroup",
+  "state": "Ready",
+  "tags": null,
+  "type": "Microsoft.Sql/servers",
+  "version": "12.0"
+}
+PS /home/watatsuyu11> az sql server firewall-rule create --resource-group myResourceGroup --server watatsuyu11 --name AllowAzureIps --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+{
+  "endIpAddress": "0.0.0.0",
+  "id": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/watatsuyu11/firewallRules/AllowAzureIps",
+  "kind": "v12.0",
+  "location": "West Europe",
+  "name": "AllowAzureIps",
+  "resourceGroup": "myResourceGroup",
+  "startIpAddress": "0.0.0.0",
+  "type": "Microsoft.Sql/servers/firewallRules"
+}
+PS /home/watatsuyu11> az sql server firewall-rule create --name AllowLocalClient --server <server-name> --resource-group myResourceGroup --start-ip-address=58.159.125.177 --end-ip-address=58.159.125.177
+ParserError:
+Line |
+   1 |  … erver firewall-rule create --name AllowLocalClient --server <server-n …
+     |                                                                ~
+     | The '<' operator is reserved for future use.
+
+PS /home/watatsuyu11> az sql server firewall-rule create --name AllowLocalClient --server watatsuyu11 --resource-group myResourceGroup --start-ip-address=58.159.125.177 --end-ip-address=58.159.125.177
+{
+  "endIpAddress": "58.159.125.177",
+  "id": "/subscriptions/f7117d3e-1f7b-464d-81fd-2e0485a04384/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/watatsuyu11/firewallRules/AllowLocalClient",
+  "kind": "v12.0",
+  "location": "West Europe",
+  "name": "AllowLocalClient",
+  "resourceGroup": "myResourceGroup",
+  "startIpAddress": "58.159.125.177",
+  "type": "Microsoft.Sql/servers/firewallRules"
+}
+PS /home/watatsuyu11>
+
+az sql db create --resource-group myResourceGroup --server watatsuyu11 --name coreDB --service-objective S0
+
+az sql db show-connection-string --client ado.net --server watatsuyu11 --name coreDB
+
+□接続文字列
+"Server=tcp:watatsuyu11.database.windows.net,1433;Database=coreDB;User ID=watatsuyu11;Password=0ce@n2O2O!;Encrypt=true;Connection Timeout=30;"
+
+# Delete old migrations
+rm Migrations -r
+# Recreate migrations
+dotnet ef migrations add InitialCreate
+
+# Set connection string to production database
+# PowerShell
+$env:ConnectionStrings:MyDbConnection="Server=tcp:watatsuyu11.database.windows.net,1433;Database=coreDB;User ID=watatsuyu11;Password=0ce@n2O2O!;Encrypt=true;Connection Timeout=30;"
+
+# Run migrations
+dotnet ef database update
+
